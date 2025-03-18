@@ -1,0 +1,73 @@
+:root {
+    --transition-time: 1s;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: white;
+    color: black;
+    transition: background-color --transition-time, color --transition-time;
+}
+
+button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 4px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    transition: background-color --transition-time, border-color --transition-time, color --transition-time;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.moon-icon {
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
+    transition: border-color --transition-time;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+body.dark-mode button {
+    background-color: #333;
+    border-color: #444;
+    color: white;
+}
+
+body.dark-mode .moon-icon {
+    border-color: rgb(255, 255, 255);
+}

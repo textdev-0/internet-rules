@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internet Rules</title>
+    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/dist/darkMode.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <div style="position: relative; width: 50px; height: 50px;">
+        <img src="/assets/icons/favicon.png" alt="favicon" width="50" height="50" style="position: absolute; top: 0; left: 0;">
+        <img src="/assets/icons/cool.png" alt="cool icon" width="50" height="50" onmouseover="this.style.opacity=1; this.style.transition='opacity 1s'" onmouseout="this.style.opacity=0; this.style.transition='opacity 1s'" style="opacity: 0; transition: opacity 0.3s; position: absolute; top: 0; left: 0;">
+    </div>
+    <h1>Internet Rules</h1>
+    <img src="/assets/icons/moon.png" alt="moon" class="moon-icon" onclick="toggleDarkMode()">
+</div>
+
+<div class="button-container">
+    <button><a href="main/rules.html">Internet rules</a></button>
+    <button><a href="main/laws.html">Internet laws</a></button>
+</div>
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        // Optional: Save preference to localStorage
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    }
+
+    // Optional: Load saved preference
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+</script>
+
+</body>
+</html> 
