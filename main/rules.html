@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Internet Rules</title>
     <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.png">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="/dist/darkMode.js"></script>
+    <script src="/dist/darkMode.js" defer></script>
 </head>
 <body>
+    <!-- Header section with logo and navigation -->
     <div class="header">
-        <a href="/index.html"><img src="/assets/icons/favicon.png" alt="favicon" width="50" height="50"></a>
-        <h1><a href="/index.html" style="text-decoration: none; color: inherit;">Internet Rules</a></h1>
-        <img src="/assets/icons/moon.png" alt="moon" class="moon-icon" onclick="toggleDarkMode()">
+        <div class="logo-container">
+            <a href="/index.html">
+                <img src="/assets/icons/favicon.png" alt="favicon" width="50" height="50" class="main-icon">
+            </a>
+        </div>
+        <h1><a href="/index.html" class="site-title">Internet Rules</a></h1>
+        <img src="/assets/icons/moon.png" alt="moon" class="moon-icon" id="darkModeToggle">
     </div>
+    
+    <!-- Rules content -->
+    <div class="content">
         <p>Rule 32: You must provide pictures for proof of your statements.</p>
         <p>Rule 34: If it exists, there is porn of it. No exceptions.</p>
         <p>Rule 37: You cannot divide by 0; just because the calculator says so.</p>
         <p>Rule 86: If it exists, it can play bad apple. No exceptions.</p>
         <p>Rule 96: If it exists, it can run doom. No exceptions.</p>
+    </div>
 </body>
 </html>
