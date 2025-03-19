@@ -1,65 +1,65 @@
 /**
- * Dark mode functionality for the website
+ * Theme functionality for the website
  */
 
 // Define types
 type ThemeMode = 'light' | 'dark';
 
 // Constants
-const STORAGE_KEY = 'darkMode';
-const DARK_CLASS = 'dark-mode';
+const STORAGE_KEY = 'lightMode';
+const LIGHT_CLASS = 'light-mode';
 
 /**
- * Toggle dark mode state and save preference
+ * Toggle light/dark mode
  */
 function toggleDarkMode(): void {
-    document.body.classList.toggle(DARK_CLASS);
-    const isDarkMode: boolean = document.body.classList.contains(DARK_CLASS);
-    saveThemePreference(isDarkMode);
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode: boolean = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode.toString());
 }
 
 /**
  * Save user theme preference to localStorage
  */
-function saveThemePreference(isDark: boolean): void {
-    localStorage.setItem(STORAGE_KEY, isDark.toString());
+function saveThemePreference(isLight: boolean): void {
+    localStorage.setItem(STORAGE_KEY, isLight.toString());
 }
 
 /**
  * Load and apply saved theme preference
  */
 function loadThemePreference(): void {
-    // Check for saved preference
     const savedPreference = localStorage.getItem(STORAGE_KEY);
     
     if (savedPreference === 'true') {
-        document.body.classList.add(DARK_CLASS);
-    } else if (savedPreference === null) {
-        // If no preference is saved, check system preference
-        checkSystemPreference();
-    }
-}
-
-/**
- * Check system color scheme preference
- */
-function checkSystemPreference(): void {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add(DARK_CLASS);
+        document.documentElement.classList.add(LIGHT_CLASS);
+    } else if (savedPreference === null && !window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // If no preference is saved and system prefers light, switch to light mode
+        document.documentElement.classList.add(LIGHT_CLASS);
         saveThemePreference(true);
     }
 }
 
 // Initialize theme on page load
 document.addEventListener('DOMContentLoaded', (): void => {
-    loadThemePreference();
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
     
     // Add event listener to the toggle button
     const toggleButton = document.getElementById('darkModeToggle');
     if (toggleButton) {
         toggleButton.addEventListener('click', toggleDarkMode);
     }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (e: MediaQueryListEvent) => {
+            if (!localStorage.getItem(STORAGE_KEY)) {
+                document.documentElement.classList.toggle(LIGHT_CLASS, !e.matches);
+            }
+        });
 });
 
-// Make toggleDarkMode available globally for legacy inline onclick handlers
+// Make toggleDarkMode available globally
 (window as any).toggleDarkMode = toggleDarkMode; 
