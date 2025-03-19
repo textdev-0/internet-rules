@@ -7,8 +7,23 @@
     <meta name="description" content="The internet rules">
     <meta name="keywords" content="internet rules, internet laws">
     <meta name="robots" content="index, follow">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/css/styles.css" as="style">
+    <link rel="preload" href="/assets/icons/favicon.png" as="image">
+    <link rel="preload" href="/assets/icons/cool.png" as="image">
+    <link rel="preload" href="/assets/icons/moon.png" as="image">
+    
     <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.png">
     <link rel="stylesheet" href="/css/styles.css">
+    
+    <!-- Inline critical CSS for faster rendering -->
+    <style>
+    body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;background-color:#ffffff;color:#000000}
+    .header{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:20px}
+    </style>
+    
+    <!-- Defer non-critical JS -->
     <script src="/dist/darkMode.js" defer></script>
 </head>
 <body>
@@ -21,13 +36,21 @@
         </a>
     </div>
     <h1>Internet Rules</h1>
-    <img src="/assets/icons/moon.png" alt="moon" class="moon-icon" id="darkModeToggle">
+    <img src="/assets/icons/moon.png" alt="Toggle dark mode" class="moon-icon" id="darkModeToggle" tabindex="0" role="button" aria-pressed="false">
 </div>
 
 <div class="button-container">
-    <button><a href="main/rules.html">Internet rules</a></button>
-    <button><a href="main/laws.html">Internet laws</a></button>
+    <button onclick="window.location.href='main/rules.html'"><a href="main/rules.html">Internet rules</a></button>
+    <button onclick="window.location.href='main/laws.html'"><a href="main/laws.html">Internet laws</a></button>
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/dist/serviceWorker.js')
+      .then(() => console.log('Service Worker registered'))
+      .catch(err => console.error('Service Worker registration failed:', err));
+  }
+</script>
 
 </body>
 </html> 

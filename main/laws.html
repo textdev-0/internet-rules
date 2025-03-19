@@ -26,27 +26,16 @@
 
 <div class="laws-container">
     <h2>Internet Laws</h2>
-    <div class="law">
-        <h3>Murphy's Law</h3>
-        <p>Anything that can go wrong will go wrong</p>
-    </div>
-    <div class="law">
-        <h3>Godwin's Law</h3>
-        <p>As an online discussion grows longer, the probability of a comparison involving Nazis or Hitler approaches 1</p>
-    </div>
-    <div class="law">
-        <h3>Poe's Law</h3>
-        <p>Without a clear indicator of the author's intent, it is impossible to create a parody of extreme views so obviously exaggerated that it cannot be mistaken by some readers for a sincere expression of the views being parodied</p>
-    </div>
-    <div class="law">
-        <h3>Cunningham's Law</h3>
-        <p>The best way to get the right answer on the internet is not to ask a question; it's to post the wrong answer</p>
-    </div>
-    <div class="law">
-        <h3>Moore's Law</h3>
-        <p>The number of transistors on a microchip doubles about every two years, while the cost halves</p>
-    </div>
+        <p>Not done yet</p>
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/dist/serviceWorker.js')
+      .then(() => console.log('Service Worker registered'))
+      .catch(err => console.error('Service Worker registration failed:', err));
+  }
+</script>
 
 </body>
 </html>
