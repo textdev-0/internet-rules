@@ -10,6 +10,25 @@
     <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.png">
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/dist/darkMode.js" defer></script>
+    <style>
+        .laws-container {
+            max-width: 100%;
+            overflow-x: hidden;
+            padding: 0 20px;
+            text-align: left;
+        }
+        .laws-container p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            margin: 10px 0;
+        }
+        @media screen and (max-width: 768px) {
+            .laws-container {
+                padding: 0 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -22,13 +41,11 @@
     </div>
     <h1><a href="/index.html" class="title-link">Internet Laws</a></h1>
     <img src="/assets/icons/moon.png" alt="moon" class="moon-icon" id="darkModeToggle">
-
-
 </div>
 
-        <p>!!Unfinished!!</p>
+<div class="laws-container">
+    <p>!!Unfinished!!</p>
 </div>
-
 
 <script>
   if ('serviceWorker' in navigator) {
