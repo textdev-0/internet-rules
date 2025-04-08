@@ -28,6 +28,29 @@
                 padding: 0 10px;
             }
         }
+        .particle {
+            position: absolute;
+            background-color: var(--particle-color, #FFE066);
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            z-index: 100;
+            box-shadow: var(--particle-glow, none);
+        }
+        :root {
+            --particle-color: #D4AF37; /* Darker gold in light mode */
+            --particle-glow: 0 0 4px #FFE066;
+        }
+        .dark-mode {
+            --particle-color: #FFE066; /* Original color in dark mode */
+            --particle-glow: none;
+        }
+        @keyframes particleFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translate(var(--end-x), var(--end-y)); }
+        }
     </style>
 </head>
 <body>
@@ -54,20 +77,6 @@
             0% { text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; }
             50% { text-shadow: 0 0 15px #D4AF37, 0 0 20px #D4AF37, 0 0 25px #D4AF37; }
             100% { text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; }
-        }
-        .particle {
-            position: absolute;
-            background-color: #FFE066;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 1;
-            z-index: 100;
-        }
-        @keyframes particleFade {
-            0% { opacity: 1; }
-            100% { opacity: 0; transform: translate(var(--end-x), var(--end-y)); }
         }
     </style>
     <script>

@@ -28,6 +28,38 @@
                 padding: 0 10px;
             }
         }
+        .gold-rule {
+            animation: shine 2s infinite;
+            position: relative;
+        }
+        @keyframes shine {
+            0% { text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; }
+            50% { text-shadow: 0 0 15px #D4AF37, 0 0 20px #D4AF37, 0 0 25px #D4AF37; }
+            100% { text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; }
+        }
+        .particle {
+            position: absolute;
+            background-color: var(--particle-color, #FFE066);
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            z-index: 100;
+            box-shadow: var(--particle-glow, none);
+        }
+        :root {
+            --particle-color: #D4AF37; /* Darker gold in light mode */
+            --particle-glow: 0 0 4px #FFE066;
+        }
+        .dark-mode {
+            --particle-color: #FFE066; /* Original color in dark mode */
+            --particle-glow: none;
+        }
+        @keyframes particleFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translate(var(--end-x), var(--end-y)); }
+        }
     </style>
 </head>
 <body>
@@ -44,41 +76,79 @@
 </div>
 
 <div class="laws-container">
-    <p>Law 1: Godwin's Law - Every online discussion eventually devolves into name-calling or Hitler comparisons.</p>
-    <p>Law 2: Skitt's Law - If you have a typo in your argument, someone will point it out instead of addressing your point.</p>
-    <p>Law 3: Cunningham's Law - The most effective way to get the right answer online is not to ask a question, but to post the wrong answer.</p>
-    <p>Law 4: Lewis' Law - Comments on any article about feminism justify feminism.</p>
-    <p>Law 5: Godwin's Law - As an online discussion grows longer, the probability of a comparison involving Nazis or Hitler approaches one.</p>
-    <p>Law 6: Poe's Law - Without a clear indicator of the author's intent, parodies of extreme views will be mistaken by some readers for sincere expressions of those views.</p>
-    <p>Law 7: Betteridge's Law - Any headline that ends in a question mark can be answered by the word "no".</p>
-    <p>Law 8: Gell-Mann Amnesia Effect - The easiest way to tell if media is biased is to look at how it covers something you're expert in.</p>
-    <p>Law 9: The Law of Expertise - For every expert there is an equal and opposite expert.</p>
-    <p>Law 10: The Law of Storage - Hard drives fail either within the first 90 days, or after the warranty expires.</p>
-    <p>Law 11: Tech Support Law - The best way to get tech support online is to say something is impossible rather than asking how to do it.</p>
-    <p>Law 12: Online Debate Law - The first person to get angry in an online debate loses.</p>
-    <p>Law 13: Brandolini's Law - The effort needed to refute misinformation is an order of magnitude greater than to produce it.</p>
-    <p>Law 14: Lessig's Law - Everything is a remix.</p>
-    <p>Law 15: YouTube Proficiency Law - No matter how good you are at something, there's an Asian kid on YouTube who's better.</p>
-    <p>Law 16: Metcalfe's Law - The value of a network is proportional to the square of the number of users.</p>
-    <p>Law 17: Bragg's Law - The usefulness of any technology is inversely proportional to its popularity.</p>
-    <p>Law 18: Shirky's Law - Once a technology becomes boring, that's when it becomes useful.</p>
-    <p>Law 19: Amara's Law - We tend to overestimate the effect of a technology in the short run and underestimate it in the long run.</p>
-    <p>Law 20: Clarke's Law - Any sufficiently advanced technology is indistinguishable from magic.</p>
-    <p>Law 21: 1-9-90 Rule - The vast majority of online content is created by a tiny minority of users.</p>
-    <p>Law 22: Gresham's Law of Information - Bad information drives out good.</p>
-    <p>Law 23: Password Circumvention Law - Your password requirements will determine exactly how users will circumvent your security system.</p>
-    <p>Law 24: Brandolini's Bullshit Asymmetry Principle - The amount of energy needed to refute BS is an order of magnitude bigger than to produce it.</p>
-    <p>Law 25: Hofstadter's Law - It always takes longer than you expect, even when you take into account Hofstadter's Law.</p>
-    <p>Law 26: Moore's Law - The number of transistors on integrated circuits doubles approximately every two years.</p>
-    <p>Law 27: Wirth's Law - Software gets slower faster than hardware gets faster.</p>
-    <p>Law 28: Conway's Law - Organizations design systems that mirror their own communication structure.</p>
-    <p>Law 29: Zawinski's Law - Every program attempts to expand until it can read mail. Those programs which cannot expand are replaced by ones which can.</p>
-    <p>Law 30: Linus's Law - Given enough eyeballs, all bugs are shallow.</p>
-    <p>Law 31: Sturgeon's Law - 90% of everything is crap.</p>
-    <p>Law 32: Internet Mirror Law - The Internet is a reflection of our society, and that mirror is going to be reflecting what we see. If we don't like what we see in that mirror, the problem isn't to fix the mirror, we have to fix society.</p>
-    <p>Law 33: Complexity Law - Any simple theory will be worded in the most complicated way possible.</p>
-    <p>Law 34: Email Typo Law - The moment you click "send" is the moment you spot a typo.</p>
-    <p>Law 35: Automation Law - If you wait long enough, someone will make a tool to automate your job.</p>
+    <p class="rule-zero-container">Law 0: <span style="font-weight: bold; color: #D4AF37; text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; position: relative;" class="gold-rule" id="rule-zero">Don't fuck with cats.</span></p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ruleZero = document.getElementById('rule-zero');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position along the text
+                const textWidth = ruleZero.offsetWidth;
+                const startX = Math.random() * textWidth;
+                
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 20 + Math.random() * 30;
+                const endX = Math.cos(angle) * distance;
+                const endY = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--end-x', `${endX}px`);
+                particle.style.setProperty('--end-y', `${endY}px`);
+                
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${ruleZero.offsetHeight / 2}px`;
+                particle.style.animation = 'particleFade 1s forwards';
+                
+                ruleZero.appendChild(particle);
+                
+                // Remove particle after animation completes
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+            
+            // Create a particle approximately once per second
+            setInterval(createParticle, 100);
+        });
+    </script>
+    <p>Law 1: <strong>Godwin's Law</strong> - Every online discussion eventually devolves into name-calling or Hitler comparisons.</p>
+    <p>Law 2: <strong>Skitt's Law</strong> - If you have a typo in your argument, someone will point it out instead of addressing your point.</p>
+    <p>Law 3: <strong>Cunningham's Law</strong> - The most effective way to get the right answer online is not to ask a question, but to post the wrong answer.</p>
+    <p>Law 4: <strong>Lewis' Law</strong> - Comments on any article about feminism justify feminism.</p>
+    <p>Law 5: <strong>Godwin's Law</strong> - As an online discussion grows longer, the probability of a comparison involving Nazis or Hitler approaches one.</p>
+    <p>Law 6: <strong>Poe's Law</strong> - Without a clear indicator of the author's intent, parodies of extreme views will be mistaken by some readers for sincere expressions of those views.</p>
+    <p>Law 7: <strong>Betteridge's Law</strong> - Any headline that ends in a question mark can be answered by the word "no".</p>
+    <p>Law 8: <strong>Gell-Mann Amnesia Effect</strong> - The easiest way to tell if media is biased is to look at how it covers something you're expert in.</p>
+    <p>Law 9: <strong>The Law of Expertise</strong> - For every expert there is an equal and opposite expert.</p>
+    <p>Law 10: <strong>The Law of Storage</strong> - Hard drives fail either within the first 90 days, or after the warranty expires.</p>
+    <p>Law 11: <strong>Tech Support Law</strong> - The best way to get tech support online is to say something is impossible rather than asking how to do it.</p>
+    <p>Law 12: <strong>Online Debate Law</strong> - The first person to get angry in an online debate loses.</p>
+    <p>Law 13: <strong>Brandolini's Law</strong> - The effort needed to refute misinformation is an order of magnitude greater than to produce it.</p>
+    <p>Law 14: <strong>Lessig's Law</strong> - Everything is a remix.</p>
+    <p>Law 15: <strong>YouTube Proficiency Law</strong> - No matter how good you are at something, there's an Asian kid on YouTube who's better.</p>
+    <p>Law 16: <strong>Metcalfe's Law</strong> - The value of a network is proportional to the square of the number of users.</p>
+    <p>Law 17: <strong>Bragg's Law</strong> - The usefulness of any technology is inversely proportional to its popularity.</p>
+    <p>Law 18: <strong>Shirky's Law</strong> - Once a technology becomes boring, that's when it becomes useful.</p>
+    <p>Law 19: <strong>Amara's Law</strong> - We tend to overestimate the effect of a technology in the short run and underestimate it in the long run.</p>
+    <p>Law 20: <strong>Clarke's Law</strong> - Any sufficiently advanced technology is indistinguishable from magic.</p>
+    <p>Law 21: <strong>1-9-90 Rule</strong> - The vast majority of online content is created by a tiny minority of users.</p>
+    <p>Law 22: <strong>Gresham's Law of Information</strong> - Bad information drives out good.</p>
+    <p>Law 23: <strong>Password Circumvention Law</strong> - Your password requirements will determine exactly how users will circumvent your security system.</p>
+    <p>Law 24: <strong>Brandolini's Bullshit Asymmetry Principle</strong> - The amount of energy needed to refute BS is an order of magnitude bigger than to produce it.</p>
+    <p>Law 25: <strong>Hofstadter's Law</strong> - It always takes longer than you expect, even when you take into account Hofstadter's Law.</p>
+    <p>Law 26: <strong>Moore's Law</strong> - The number of transistors on integrated circuits doubles approximately every two years.</p>
+    <p>Law 27: <strong>Wirth's Law</strong> - Software gets slower faster than hardware gets faster.</p>
+    <p>Law 28: <strong>Conway's Law</strong> - Organizations design systems that mirror their own communication structure.</p>
+    <p>Law 29: <strong>Zawinski's Law</strong> - Every program attempts to expand until it can read mail. Those programs which cannot expand are replaced by ones which can.</p>
+    <p>Law 30: <strong>Linus's Law</strong> - Given enough eyeballs, all bugs are shallow.</p>
+    <p>Law 31: <strong>Sturgeon's Law</strong> - 90% of everything is crap.</p>
+    <p>Law 32: <strong>Internet Mirror Law</strong> - The Internet is a reflection of our society, and that mirror is going to be reflecting what we see. If we don't like what we see in that mirror, the problem isn't to fix the mirror, we have to fix society.</p>
+    <p>Law 33: <strong>Complexity Law</strong> - Any simple theory will be worded in the most complicated way possible.</p>
+    <p>Law 34: <strong>Email Typo Law</strong> - The moment you click "send" is the moment you spot a typo.</p>
+    <p>Law 35: <strong>Automation Law</strong> - If you wait long enough, someone will make a tool to automate your job.</p>
 </div>
 
 <script>
