@@ -43,7 +43,71 @@
     <img src="/assets/icons/moon.png" alt="moon" class="moon-icon" id="darkModeToggle">
 </div>
 <div class="rules-container">
-    <p>Rule 0: Don't fuck with cats.</p>
+
+    <p class="rule-zero-container">Rule 0: <span style="font-weight: bold; color: #D4AF37; text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; position: relative;" class="gold-rule" id="rule-zero">Don't fuck with cats.</span></p>
+    <style>
+        .gold-rule {
+            animation: shine 2s infinite;
+            position: relative;
+        }
+        @keyframes shine {
+            0% { text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; }
+            50% { text-shadow: 0 0 15px #D4AF37, 0 0 20px #D4AF37, 0 0 25px #D4AF37; }
+            100% { text-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37; }
+        }
+        .particle {
+            position: absolute;
+            background-color: #FFE066;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            z-index: 100;
+        }
+        @keyframes particleFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translate(var(--end-x), var(--end-y)); }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ruleZero = document.getElementById('rule-zero');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position along the text
+                const textWidth = ruleZero.offsetWidth;
+                const startX = Math.random() * textWidth;
+                
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 20 + Math.random() * 30;
+                const endX = Math.cos(angle) * distance;
+                const endY = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--end-x', `${endX}px`);
+                particle.style.setProperty('--end-y', `${endY}px`);
+                
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${ruleZero.offsetHeight / 2}px`;
+                particle.style.animation = 'particleFade 1s forwards';
+                
+                ruleZero.appendChild(particle);
+                
+                // Remove particle after animation completes
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+            
+            // Create a particle approximately once per second
+            setInterval(createParticle, 100);
+        });
+    </script>
+    
     <p>Rule 1: You don't talk about /b/.</p>
     <p>Rule 2: You DON'T talk about /b/!</p>
     <p>Rule 3: We are Anonymous.</p>
