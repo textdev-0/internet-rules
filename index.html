@@ -1,29 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Internet Rules</title>
+    <title>Internet Geography</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The rules of the internet.">
-    <meta name="keywords" content="internet rules, internet laws">
     <meta name="robots" content="index, follow">
-    
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/css/styles.css" as="style">
-    <link rel="preload" href="/assets/icons/favicon.png" as="image">
-    <link rel="preload" href="/assets/icons/cool.png" as="image">
-    <link rel="preload" href="/assets/icons/moon.png" as="image">
     
     <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.png">
     <link rel="stylesheet" href="/css/styles.css">
     
-    <!-- Inline critical CSS for faster rendering -->
     <style>
-    body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;background-color:#ffffff;color:#000000}
+    body{margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;background-color:var(--bg-color, #ffffff);color:var(--text-color, #000000)}
     .header{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:20px}
+    
+    .content-container {
+        max-width: 100%;
+        padding: 60px 20px 20px;
+        text-align: left;
+    }
+    .search-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-color, #ffffff);
+        color: var(--text-color, #000000);
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .search-box {
+        display: flex;
+        width: 80%;
+        max-width: 600px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid var(--input-border, #ccc);
+        height: 38px;
+        border-radius: 3px;
+    }
+    .search-box input {
+        flex-grow: 1;
+        padding: 0 12px;
+        border: none;
+        font-size: 14px;
+        background-color: var(--input-bg, #fff);
+        color: var(--input-text, #333);
+        outline: none;
+        height: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+    .search-nav {
+        display: flex;
+        height: 100%;
+    }
+    .search-nav button {
+        background-color: #aaaaaa !important;
+        color: var(--button-text, #555);
+        border: none;
+        border-left: 1px solid var(--input-border, #ccc);
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+        height: 100%;
+        min-width: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+    }
+    .search-nav button:hover {
+        background-color: #888888 !important;
+    }
+    .search-nav button:first-child {
+        border-right: none;
+    }
+    .highlight {
+        background-color: yellow;
+    }
+    .active-highlight {
+        background-color: orange;
+    }
+    @media (max-width: 768px) {
+        .search-box {
+            width: 95%;
+        }
+    }
+    
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #000000;
+        --button-bg: #c0c0c0;
+        --button-text: #fff;
+        --button-border: #ccc;
+        --button-hover-bg: #a0a0a0;
+        --input-border: rgba(204, 204, 204, 0.8);
+        --input-bg: #fff;
+        --input-text: #333;
+    }
+    
+    .dark-mode {
+        --bg-color: #222222;
+        --text-color: #ffffff;
+        --button-bg: #3a3a3a;
+        --button-text: #ddd;
+        --button-border: #555;
+        --button-hover-bg: #2a2a2a;
+        --input-border: rgba(85, 85, 85, 0.8);
+        --input-bg: #333;
+        --input-text: #eee;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    .search-box, 
+    .search-box input,
+    .search-nav button:last-child {
+        border-radius: 3px;
+    }
+    
+    .search-box input {
+        border-radius: 0;
+    }
+    
+    .search-nav button:last-child {
+        border-radius: 0 3px 3px 0;
+    }
+    
+    /* Dark mode specific button styles */
+    .dark-mode .search-nav button {
+        background-color: #222222 !important;
+    }
+    
+    .dark-mode .search-nav button:hover {
+        background-color: #1a1a1a !important;
+    }
+    
+    .button-container {
+        margin-top: 60px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
     </style>
     
-    <!-- Defer non-critical JS -->
     <script src="/dist/darkMode.js" defer></script>
 </head>
 <body>
@@ -35,21 +166,133 @@
             <img src="/assets/icons/cool.png" alt="cool icon" width="50" height="50" class="hover-icon">
         </a>
     </div>
-    <h1>Internet Rules</h1>
+    <h1>Internet Geography</h1>
     <img src="/assets/icons/moon.png" alt="Toggle dark mode" class="moon-icon" id="darkModeToggle" tabindex="0" role="button" aria-pressed="false">
 </div>
 
+<div class="search-container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <div class="search-nav">
+            <button id="prevButton">↑</button>
+            <button id="nextButton">↓</button>
+        </div>
+    </div>
+</div>
+
+<div class="content-container">
 <div class="button-container">
-    <button onclick="window.location.href='main/rules.html'"><a href="main/rules.html">Internet rules</a></button>
-    <button onclick="window.location.href='main/laws.html'"><a href="main/laws.html">Internet laws</a></button>
+    <button onclick="window.location.href='main/river-env.html'"><a href="main/river-env.html">River Enviroments</a></button>
+    <button onclick="window.location.href='main/coastal-env.html'"><a href="main/coastal-env.html">Coastal Enviroments</a></button>
+    <button onclick="window.location.href='main/hazard-env.html'"><a href="main/hazard-env.html">Hazardous Enviroments</a></button>
+    <button onclick="window.location.href='main/econ-activity-&-energy.html'"><a href="main/econ-activity-&-energy.html">Economic activities & Energy</a></button>
+    <button onclick="window.location.href='main/rural-env.html'"><a href="main/rural-env.html">Rural Enviroments</a></button>
+    <button onclick="window.location.href='main/urban-env.html'"><a href="main/urban-env.html">Urban Enviroments</a></button>
+    <button onclick="window.location.href='main/fragile-env-&-climate-change.html'"><a href="main/fragile-env-&-climate-change.html">Fragile Enviroments & Climate Change</a></button>
+    <button onclick="window.location.href='main/globalise-&-migrate.html'"><a href="main/globalise-&-migrate.html">Globalisation & Migration</a></button>
+    <button onclick="window.location.href='main/develop-&-human-welfare.html'"><a href="main/develop-&-human-welfare.html">Development & Human Welfare</a></button>
+</div>
 </div>
 
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/dist/serviceWorker.js')
-      .then(() => console.log('Service Worker registered'))
-      .catch(err => console.error('Service Worker registration failed:', err));
-  }
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const contentContainer = document.querySelector('.content-container');
+        
+        let matches = [];
+        let currentMatch = -1;
+        
+        function performSearch() {
+            // Remove existing highlights
+            const oldHighlights = document.querySelectorAll('.highlight');
+            oldHighlights.forEach(el => {
+                const parent = el.parentNode;
+                parent.replaceChild(document.createTextNode(el.textContent), el);
+                parent.normalize();
+            });
+            
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm === '') {
+                matches = [];
+                currentMatch = -1;
+                return;
+            }
+            
+            // Find all text nodes in the content
+            const textNodes = [];
+            function getTextNodes(node) {
+                if (node.nodeType === 3) { // Text node
+                    textNodes.push(node);
+                } else if (node.nodeType === 1) { // Element node
+                    for (let i = 0; i < node.childNodes.length; i++) {
+                        getTextNodes(node.childNodes[i]);
+                    }
+                }
+            }
+            getTextNodes(contentContainer);
+            
+            matches = [];
+            
+            // Search and highlight matches
+            textNodes.forEach(textNode => {
+                const text = textNode.nodeValue;
+                const parent = textNode.parentNode;
+                let lastIndex = 0;
+                let index;
+                
+                while ((index = text.toLowerCase().indexOf(searchTerm.toLowerCase(), lastIndex)) !== -1) {
+                    const range = document.createRange();
+                    range.setStart(textNode, index);
+                    range.setEnd(textNode, index + searchTerm.length);
+                    
+                    const span = document.createElement('span');
+                    span.className = 'highlight';
+                    range.surroundContents(span);
+                    
+                    matches.push(span);
+                    
+                    lastIndex = index + 1;
+                    textNode = span.nextSibling;
+                    if (!textNode) break;
+                }
+            });
+            
+            currentMatch = matches.length > 0 ? 0 : -1;
+            highlightCurrentMatch();
+        }
+        
+        function highlightCurrentMatch() {
+            if (currentMatch === -1) return;
+            
+            // Remove active class from all highlights
+            matches.forEach(match => match.classList.remove('active-highlight'));
+            
+            // Add active class to current match
+            matches[currentMatch].classList.add('active-highlight');
+            
+            // Scroll to current match
+            matches[currentMatch].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+        
+        searchInput.addEventListener('input', performSearch);
+        
+        prevButton.addEventListener('click', function() {
+            if (matches.length === 0) return;
+            currentMatch = (currentMatch - 1 + matches.length) % matches.length;
+            highlightCurrentMatch();
+        });
+        
+        nextButton.addEventListener('click', function() {
+            if (matches.length === 0) return;
+            currentMatch = (currentMatch + 1) % matches.length;
+            highlightCurrentMatch();
+        });
+    });
 </script>
 
 </body>
